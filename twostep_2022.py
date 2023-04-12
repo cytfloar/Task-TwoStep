@@ -63,29 +63,30 @@ with open(f"{save_filename}.csv", 'w', newline='') as csvfile:
         def get(transprob):
           rand = np.random.rand()
           return int(rand > transprob) ^ (input - 1)
+        ##transprob of getting 2 and (1 - transprob of getting 3)
         imgcenter = c.ROCKETBLDEACT
 
-        #select spaceship
-        trans = get(0.7)
+        #select spaceship 
+        trans = get(0.7) #70% of getting 2 and 30% of getting 3
         if selectspkey is None:
             showSelection(win, bg, c.ROCKETBLSP, c.ROCKETGRSP, 1.0)
             continue
-        elif selectspkey[0][0] == 'x':
+        elif selectspkey[0][0] == 'x': #if press x, 70% of getting 2 - purple planet
             showSelection(win, bg, c.ROCKETBLA, c.ROCKETGRDEACT, 0.5, pos_left =(0,0))
             showSelection(win, bg, c.ROCKETBLB, c.ROCKETGRDEACT, 0.5, pos_left =(0,0))
-        elif selectspkey[0][0] == 'm':
+        elif selectspkey[0][0] == 'm': #if press m, 70% of getting 3 - red planet
             showSelection(win, bg, c.ROCKETBLDEACT, c.ROCKETGRA, 0.5, pos_right=(0,0))
             showSelection(win, bg, c.ROCKETBLDEACT, c.ROCKETGRB, 0.5, pos_right =(0,0))
             trans = 5 - trans
             imgcenter = c.ROCKETGRDEACT
 
         #transition planet
-        if trans == 2:
+        if trans == 2: 
             bg = c.PURPLEPLANET
             probset = [row['p3'], row['p4']]
             alienset = [c.ALIENCSP, c.ALIENDSP, c.ALIENCA, c.ALIENCB, c.ALIENDA, c.ALIENDB, c.ALIENC_DEACT, c.ALIEND_DEACT]
             alkey = showImages(win, bg, c.ALIENC, c.ALIEND, imgcenter, 4.0-0.05)
-        else:
+        else: 
             bg = c.REDPLANET
             probset = [row['p1'], row['p2']]
             alienset = [c.ALIENASP, c.ALIENBSP, c.ALIENAA, c.ALIENAB, c.ALIENBA, c.ALIENBB, c.ALIENA_DEACT, c.ALIENB_DEACT]
@@ -95,24 +96,23 @@ with open(f"{save_filename}.csv", 'w', newline='') as csvfile:
         if alkey is None: 
             showSelection(win, bg, alienset[0], alienset[1], 1.0)
             continue
-        elif alkey[0][0] == 'x':
+        elif alkey[0][0] == 'x': #selected alien 1/a OR 3/c
             alselect_de = alienset[-2]
             probs = probset[0]
-            transmoney = get(probs)
+            transmoney = get(probs) #probs% of getting 2 - close to 70% or 60%
             showSelection(win, bg, alienset[2], alienset[-1], 0.5, pos_left =(0,0))
             showSelection(win, bg, alienset[3], alienset[-1], 0.5, pos_left =(0,0))
-        elif alkey[0][0] == 'm':
+        elif alkey[0][0] == 'm': #selected alien 2/b OR 4/d
             alselect_de = alienset[-1]
             probs = probset[1]
-            transmoney = get(probs)
+            transmoney = get(probs) #probs% of getting 2 - close to 30% or 40%
             showSelection(win, bg, alienset[-2], alienset[4], 0.5, pos_right =(0,0))
             showSelection(win, bg, alienset[-2], alienset[5], 0.5, pos_right =(0,0))
-            transmoney = 5 - transmoney
 
         #if there is reward
-        if transmoney == 2:
+        if transmoney == 2: ##there is a reward
             showResults(win, bg, c.SPACEGOLD, alselect_de, 1.0, pos_up =(0, 0.3))
-        else:
+        else: ##there is no reward
             showResults(win, bg, None, alselect_de, 1.0, pos_up =(0, 0.3))
 
         csvrow = {
@@ -194,7 +194,6 @@ with open(f"{save_filename}.csv", 'w', newline='') as csvfile:
             transmoney = get(probs)
             showSelection(win, bg, alienset[-2], alienset[4], 0.5, pos_right =(0,0))
             showSelection(win, bg, alienset[-2], alienset[5], 0.5, pos_right =(0,0))
-            transmoney = 5 - transmoney
 
         #if there is reward
         if transmoney == 2:
