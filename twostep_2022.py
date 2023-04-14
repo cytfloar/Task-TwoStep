@@ -1,6 +1,5 @@
 ###This experimented is created based on 2 Step Task Money version and added the probe phase task
 ###This experimented was created using PsychoPy3 on Feb.15, 2023 by Serena J. Gu (RA at Columbia Center for Eating Disorders)
-###Closed book test
 import os
 import re
 from functools import partial
