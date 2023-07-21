@@ -228,7 +228,7 @@ with open(f"{save_probename}.csv", 'w', newline='') as csvfile:
         "probera", "probekey","probert"])
     writer.writeheader()
     newInstruct(win, c.PROBE, keyList=['space'])
-    for i in range(5):
+    for i in range(6):
         for index, row in probelist.iterrows():
             newCross(win)
             alienfollowup = showImage(win, None, row['probe_la'], row['probe_ra'], 3.0)
